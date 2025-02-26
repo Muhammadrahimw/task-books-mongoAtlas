@@ -17,3 +17,12 @@ export const bookValidator = Joi.object({
 	author: Joi.string().min(3).max(100).required(),
 	description: Joi.string().min(10).max(500).required(),
 });
+
+export const authorValidator = Joi.object({
+	firstName: Joi.string().min(3).max(100).required(),
+	lastName: Joi.string().min(3).max(50).required(),
+	date: Joi.string().min(2).required(),
+	dateofDeath: Joi.string().min(3),
+	country: Joi.string().min(3).max(50).required(),
+	bio: Joi.string().min(10).max(500).required(),
+});

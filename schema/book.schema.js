@@ -38,3 +38,4 @@ const bookSchema = new Schema(
 );
 
 const bookSchemas = model("Book", bookSchema);
+export default bookSchemas;
