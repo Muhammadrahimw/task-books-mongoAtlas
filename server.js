@@ -6,7 +6,7 @@ import {router} from "./routes/router.js";
 import {connectDB} from "./db/db.connect.js";
 
 dotenv.config();
-const PORT = process.env.PORT || 6060;
+const PORT = process.env.PORT || 8080;
 const app = express();
 app.use(cors());
 app.use(express.json());
