@@ -10,3 +10,13 @@ export const validateUserSignUp = (req, res, next) => {
 		next(error);
 	}
 };
+
+export const validateBook = (req, res, next) => {
+	try {
+		const {error} = bookValidator.validate(req.body);
+		if (error) throw new CustomError(400, error.details[0].message);
+		next();
+	} catch (error) {
+		next(error);
+	}
+};

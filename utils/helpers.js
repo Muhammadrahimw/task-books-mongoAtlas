@@ -1,6 +1,10 @@
 import {totp} from "otplib";
 import {transport} from "../config/mailer.js";
-import {registerMailDesign, verifyCodeDesign} from "./res-verify-design.js";
+import {
+	registerMailDesign,
+	verifyCodeDesign,
+	verifyLinkDesign,
+} from "./res-verify-design.js";
 
 export const sendVerifyCode = async (props) => {
 	const secret = process.env.SECRET_KEY + props.email;
@@ -23,5 +27,16 @@ export const sendOnlyCode = async (props) => {
 		to: props,
 		subject: `Register code`,
 		html: verifyCodeDesign(otpCode),
+	});
+};
+
+export const sendVerifyLink = async (props) => {
+	await transport.sendMail({
+		from: process.env.MAIL_AUTH_NAME,
+		to: props.email,
+		subject: `Verify`,
+		html: verifyLinkDesign({
+			link: `${process.env.FRONTEND_URL}/auth/verify?token=${props.token}`,
+		}),
 	});
 };

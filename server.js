@@ -8,13 +8,13 @@ import {connectDB} from "./db/db.connect.js";
 dotenv.config();
 const PORT = process.env.PORT || 6060;
 const app = express();
-app.use(cors);
+app.use(cors());
 app.use(express.json());
 app.use(router);
 
 app.use((req, res, next) => {
 	try {
-		throw new CustomError(404, `${req.url} not found`);
+		throw new CustomError(404, `${req.url} page not found`);
 	} catch (error) {
 		next(error);
 	}

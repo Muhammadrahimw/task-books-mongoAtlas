@@ -147,3 +147,63 @@ export const verifyCodeDesign = (code) => {
 
     `;
 };
+
+export const verifyLinkDesign = ({link}) => {
+	return `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Email Verification</title>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        background-color: #f4f4f4;
+                        margin: 0;
+                        padding: 0;
+                    }
+                    .container {
+                        max-width: 600px;
+                        margin: 20px auto;
+                        background: #ffffff;
+                        padding: 20px;
+                        border-radius: 8px;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                        text-align: center;
+                    }
+                    h2 {
+                        color: #333;
+                    }
+                    p {
+                        color: #666;
+                        font-size: 16px;
+                    }
+                    .button {
+                        display: inline-block;
+                        background-color: #007BFF;
+                        color: white;
+                        text-decoration: none;
+                        padding: 12px 20px;
+                        border-radius: 5px;
+                        font-size: 16px;
+                        font-weight: bold;
+                        margin-top: 20px;
+                    }
+                    .button:hover {
+                        background-color: #0056b3;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <h2>Verification</h2>
+                    <p>Please click the button below to verify your email address.</p>
+                    <a href="${link}" class="button">Verify</a>
+                    <p>If you did not request this, please ignore this email.</p>
+                </div>
+            </body>
+            </html>
+
+    `;
+};
