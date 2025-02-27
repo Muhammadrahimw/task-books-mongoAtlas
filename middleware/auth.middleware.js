@@ -16,6 +16,7 @@ export const verifyToken = (req, res, next) => {
 };
 
 export const verifyQueryToken = (req, res, next) => {
+	
 	try {
 		const {token} = req.query;
 		if (!token) throw new CustomError(401, `Access denied. No token provided`);

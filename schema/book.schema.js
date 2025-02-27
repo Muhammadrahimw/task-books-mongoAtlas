@@ -23,7 +23,7 @@ const bookSchema = new Schema(
 			required: [true, "Country of publication is required"],
 		},
 		author: {
-			type: Schema.Types.ObjectId,
+			type: String,
 			ref: "User",
 			required: [true, "Author is required"],
 		},

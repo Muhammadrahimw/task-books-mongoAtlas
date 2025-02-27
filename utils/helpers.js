@@ -36,7 +36,7 @@ export const sendVerifyLink = async (props) => {
 		to: props.email,
 		subject: `Verify`,
 		html: verifyLinkDesign({
-			link: `${process.env.FRONTEND_URL}/auth/verify?token=${props.token}`,
+			link: `${process.env.FRONTEND_URL}/verify/?token=${props.token}`,
 		}),
 	});
 };

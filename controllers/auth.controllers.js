@@ -33,20 +33,27 @@ export const verifySignUp = async (req, res, next) => {
 	try {
 		const checkUser = await userSchemas.findOne({email: req.user.email});
 		if (checkUser) throw new CustomError(400, `Already registered`);
-		const user = req.user;
-		await userSchemas.create({
-			firstName: user.firstName,
-			lastName: user.lastName,
-			phone: user.phone,
-			email: user.email,
-			password: user.password,
+		const user = await userSchemas.create({
+			firstName: req.user.firstName,
+			lastName: req.user.lastName,
+			phone: req.user.phone,
+			email: req.user.email,
+			password: req.user.password,
 		});
+		const token = SignInJwt({id: user._id}, `1d`);
 		const resData = new ResData(201, `successfully registered`, {
 			firstName: user.firstName,
 			lastName: user.lastName,
 			phone: user.phone,
 			email: user.email,
 			password: user.password,
+			token: token,
+		});
+		res.cookie(`token`, token, {
+			httpOnly: true,
+			secure: true,
+			sameSite: "strict",
+			maxAge: 60 * 60 * 1000,
 		});
 		res.status(resData.status).json(resData);
 	} catch (error) {
@@ -63,15 +70,31 @@ export const signIn = async (req, res, next) => {
 		if (!checkUser) throw new CustomError(404, `User not found`);
 		const isMatch = await bcrypt.compare(password, checkUser.password);
 		if (!isMatch) throw new CustomError(401, `Incorrect password`);
+		const token = SignInJwt({id: checkUser.id}, `1d`);
 		const resData = new ResData(200, `Logged in successfully`, {
 			id: checkUser._id,
 			firstName: checkUser.firstName,
 			lastName: checkUser.lastName,
 			phone: checkUser.phone,
 			email: checkUser.email,
-			token: SignInJwt({id: checkUser.id}, `1d`),
+			token: token,
+		});
+		res.cookie(`token`, token, {
+			httpOnly: true,
+			secure: true,
+			sameSite: "strict",
+			maxAge: 60 * 60 * 1000,
 		});
 		res.status(resData.status).json(resData);
+	} catch (error) {
+		next(error);
+	}
+};
+
+export const signOut = async (req, res, next) => {
+	try {
+		res.clearCookie("token");
+		res.status(200).json({message: `Logged out successfully`});
 	} catch (error) {
 		next(error);
 	}
