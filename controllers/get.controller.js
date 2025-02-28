@@ -4,10 +4,33 @@ import {CustomError, ResData} from "../utils/res-helpers.js";
 
 export const getBooks = async (req, res, next) => {
 	try {
-		const books = await bookSchemas.find();
-		if (!books) throw new CustomError(404, `There are no books yet`);
-		const resData = new ResData(200, `success`, [...books]);
-		res.status(resData.status).json(resData);
+		const {category, search} = req.query;
+		let pipeline = [];
+
+		if (search) {
+			pipeline.push({
+				$search: {
+					index: "title",
+					text: {
+						query: search,
+						path: ["title", "description", "author"],
+					},
+				},
+			});
+		}
+		if (category) {
+			pipeline.push({$match: {category}});
+		}
+		if (!pipeline.length) {
+			const books = await bookSchemas.find();
+			if (!books.length) throw new CustomError(404, "No books found");
+			return res.status(200).json({status: 200, message: "success", books});
+		}
+		const books = await bookSchemas.aggregate(pipeline);
+		if (!books.length)
+			throw new CustomError(404, "No books found matching the query");
+
+		res.status(200).json({status: 200, message: "success", books});
 	} catch (error) {
 		next(error);
 	}
