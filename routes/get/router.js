@@ -9,10 +9,10 @@ import {
 } from "../../controllers/get.controller.js";
 const router = Router();
 
-router.get(`/books`, verifyToken, getBooks);
-router.get(`/book/name`, verifyToken, getBookByName);
-router.get(`/book/:id`, verifyToken, getBookById);
-router.get(`/authors`, verifyToken, getAuthors);
-router.get(`/author/:id`, verifyToken, getAuthorById);
+router.get(`/books`, getBooks);
+router.get(`/book/name`, getBookByName);
+router.get(`/book/:id`, getBookById);
+router.get(`/authors`, getAuthors);
+router.get(`/author/:id`, getAuthorById);
 
 export {router};
