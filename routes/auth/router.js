@@ -13,5 +13,4 @@ router.post(`/sign-up`, validateUserSignUp, signUp);
 router.get(`/verify`, verifyQueryToken, verifySignUp);
 router.post(`/sign-in`, signIn);
 router.post(`/logout`, signOut);
-
 export {router};

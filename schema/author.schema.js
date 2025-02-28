@@ -31,6 +31,14 @@ const authorSchema = new Schema({
 		minlength: 10,
 		maxlength: 500,
 	},
+	image: {
+		type: String,
+		required: [true, "Image is required"],
+		match: [
+			/^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/,
+			"Please enter a valid image URL",
+		],
+	},
 });
 
 const authorSchemas = model(`Author`, authorSchema);

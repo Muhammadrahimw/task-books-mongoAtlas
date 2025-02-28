@@ -6,6 +6,7 @@ export const userValidator = Joi.object({
 	phone: Joi.string().min(9).max(12).required(),
 	email: Joi.string().email().required(),
 	password: Joi.string().min(5).required(),
+	image: Joi.string().allow(""),
 });
 
 export const bookValidator = Joi.object({
@@ -16,6 +17,15 @@ export const bookValidator = Joi.object({
 	country: Joi.string().min(3).max(100).required(),
 	author: Joi.string().min(3).max(100).required(),
 	description: Joi.string().min(10).max(500).required(),
+	image: Joi.string().required(),
+	category: Joi.string()
+		.valid(
+			"Temuriylar davri",
+			"Jadid adabiyoti",
+			"Sovet davri",
+			"Mustaqillik davri"
+		)
+		.required(),
 });
 
 export const authorValidator = Joi.object({
@@ -25,4 +35,5 @@ export const authorValidator = Joi.object({
 	dateofDeath: Joi.string().allow(""),
 	country: Joi.string().min(3).max(50).required(),
 	bio: Joi.string().min(10).max(500).required(),
+	image: Joi.string().required(),
 });

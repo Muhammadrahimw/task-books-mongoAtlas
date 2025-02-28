@@ -31,6 +31,24 @@ const bookSchema = new Schema(
 			type: String,
 			required: [true, "Description is required"],
 		},
+		image: {
+			type: String,
+			required: [true, "Image URL is required"],
+			match: [
+				/^https?:\/\/[^\s@]+\.[^\s@]+\.[^\s@]+$/,
+				"Please enter a valid image URL",
+			],
+		},
+		category: {
+			type: String,
+			required: [true, "Category is required"],
+			enum: [
+				"Temuriylar davri",
+				"Jadid adabiyoti",
+				"Sovet davri",
+				"Mustaqillik davri",
+			],
+		},
 	},
 	{
 		versionKey: false,
