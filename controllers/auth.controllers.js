@@ -50,8 +50,8 @@ export const verifySignUp = async (req, res, next) => {
 			token: token,
 		});
 		res.cookie(`token`, token, {
-			httpOnly: false,
-			secure: false,
+			httpOnly: true,
+			secure: true,
 			sameSite: "strict",
 			maxAge: 60 * 60 * 1000,
 		});
@@ -80,8 +80,8 @@ export const signIn = async (req, res, next) => {
 			token: token,
 		});
 		res.cookie(`token`, token, {
-			httpOnly: false,
-			secure: false,
+			httpOnly: true,
+			secure: true,
 			sameSite: "strict",
 			maxAge: 60 * 60 * 1000,
 		});
