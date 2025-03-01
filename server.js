@@ -8,7 +8,13 @@ import {connectDB} from "./db/db.connect.js";
 dotenv.config();
 const PORT = process.env.PORT || 6060;
 const app = express();
-app.use(cors({origin: "*"}));
+app.use(
+	cors({
+		origin: ["http://localhost:3000", "https://task-books-frontend.vercel.app"], // O'zingizning frontend domenlaringizni qo'shing
+		credentials: true,
+	})
+);
+
 app.use(express.json());
 app.use(router);
 
