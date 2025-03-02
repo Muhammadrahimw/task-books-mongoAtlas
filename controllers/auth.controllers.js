@@ -52,8 +52,9 @@ export const verifySignUp = async (req, res, next) => {
 		res.cookie(`token`, token, {
 			httpOnly: true,
 			secure: true,
-			sameSite: "strict",
+			sameSite: "none",
 			maxAge: 60 * 60 * 1000,
+			domain: ".task-books-frontend.vercel.app",
 		});
 		res.status(resData.status).json(resData);
 	} catch (error) {
@@ -82,8 +83,9 @@ export const signIn = async (req, res, next) => {
 		res.cookie(`token`, token, {
 			httpOnly: true,
 			secure: true,
-			sameSite: "strict",
+			sameSite: "none",
 			maxAge: 60 * 60 * 1000,
+			domain: ".task-books-frontend.vercel.app",
 		});
 		res.status(resData.status).json(resData);
 	} catch (error) {

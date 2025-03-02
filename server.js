@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 6060;
 const app = express();
 app.use(
 	cors({
-		origin: ["http://localhost:3000", "https://task-books-frontend.vercel.app"], // O'zingizning frontend domenlaringizni qo'shing
+		origin: ["http://localhost:3000", "https://task-books-frontend.vercel.app"],
 		credentials: true,
 	})
 );
